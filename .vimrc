@@ -11,9 +11,14 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+
 
 Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
-
+Bundle 'Valloric/YouCompleteMe'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -50,19 +55,32 @@ inoremap {<cr> {<cr>}<c-o><s-o>
 inoremap [<cr> [<cr>]<c-o><s-o>
 inoremap (<cr> (<cr>)<c-o><s-o>
 
+" Stop swp files
+set noswapfile
+
 " docstrings folding
 let g:SimpylFold_docstring_preview=1
 
+" enable all python syntax highighting features
 let python_highlight_all=1
 syntax on
+syntax enable
+
+" Show a visual line under currentline
+set cursorline
+
+" Show the matching part of the pair for [] {} ()
+set showmatch
 
 if has('gui_running')
   set background=dark
-  colorscheme solarized
-else
   colorscheme zenburn
+else
+  set background=dark
+  colorscheme space-vim-dark 
 endif
 
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 
 au BufNewFile,BufRead *.py
@@ -86,22 +104,21 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 set encoding=utf-8
 
-
-"Enable when ycm is installed
-"python with virtualenv support
-"py << EOF
-"import os
-"import sys
-"if 'VIRTUAL_ENV' in os.environ:
-"  project_base_dir = os.environ['VIRTUAL_ENV']
-"    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"      execfile(activate_this, dict(__file__=activate_this))
-"EOF
-
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "call togglebg#map("<F5>")
 
-
+" Virtualenv support
+ py3 << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  exec(compile(open(activate_this, "rb").read(), activate_this, 'exec'),
+  dict(__file__=activate_this))
+EOF
 
 
 " Clipboard
