@@ -15,10 +15,13 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'vim-syntastic/syntastic'
 
-
+Bundle 'nvie/vim-flake8'
 Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'python-mode/python-mode'
+Bundle 'vim-autopep8'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -49,6 +52,7 @@ set foldmethod=indent
 set foldlevel=99
 
 " Enable foldin with spacebar
+"Plugin 'nvie/vim-flake8'
 nnoremap <space> za
 
 inoremap {<cr> {<cr>}<c-o><s-o>
@@ -106,6 +110,22 @@ set encoding=utf-8
 
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"pymode
+let g:pymode_python = 'python3'
+
+"Flake 8
+"let g:flake8_show_in_gutter=1
+"autocmd BufWritePost *.py call Flake8()
+
+" Automatically fix PEP8 errors in the current buffer:
+noremap <F8> :PymodeLintAuto<CR>
+
+"let g:pymode_lint_on_write = 0
+
+call pymode#default("g:pymode_options_max_line_length", 80)
+
+"call flake8#Flake8UnplaceMarkers()
 
 "call togglebg#map("<F5>")
 
