@@ -21,7 +21,7 @@ Bundle 'nvie/vim-flake8'
 Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'python-mode/python-mode'
-Bundle 'vim-autopep8'
+"Bundle 'vim-autopep8'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
